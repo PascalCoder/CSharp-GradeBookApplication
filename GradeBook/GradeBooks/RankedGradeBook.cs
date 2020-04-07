@@ -20,33 +20,32 @@ namespace GradeBook.GradeBooks
                 throw new InvalidOperationException();
             }
 
-            var top20Division = (int)(Students.Count * 0.2);
-            var second20Division = (int)(Students.Count * 0.4);
-            var third20Division = (int)(Students.Count * 0.6);
-            var fourth20Division = (int)(Students.Count * 0.8);
+            var top20Division = (int)(Students.Count * 0.2) - 1;
+            var second20Division = (int)(Students.Count * 0.4) - 1;
+            var third20Division = (int)(Students.Count * 0.6) - 1;
+            var fourth20Division = (int)(Students.Count * 0.8) - 1;
             var sortedStudentsByGrade = Students.OrderByDescending(s => s.AverageGrade).ToList();
             
             if (averageGrade >= sortedStudentsByGrade[top20Division].AverageGrade)
             {
                 return 'A';
             } 
-            else if (averageGrade < sortedStudentsByGrade[top20Division].AverageGrade
-                && averageGrade >= sortedStudentsByGrade[second20Division].AverageGrade)
+            else if (averageGrade >= sortedStudentsByGrade[second20Division].AverageGrade)
             {
                 return 'B';
             } 
-            else if (averageGrade < sortedStudentsByGrade[second20Division].AverageGrade
-                && averageGrade >= sortedStudentsByGrade[third20Division].AverageGrade)
+            else if (averageGrade >= sortedStudentsByGrade[third20Division].AverageGrade)
             {
                 return 'C';
             }
-            else if (averageGrade < sortedStudentsByGrade[third20Division].AverageGrade
-                && averageGrade >= sortedStudentsByGrade[fourth20Division].AverageGrade)
+            else if (averageGrade >= sortedStudentsByGrade[fourth20Division].AverageGrade)
             {
                 return 'D';
             }
-            else
-            { }
+            else if (averageGrade < sortedStudentsByGrade[fourth20Division].AverageGrade)
+            {
+                return 'F';
+            }
 
             return 'F';
         }
